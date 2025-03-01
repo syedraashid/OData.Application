@@ -1,0 +1,35 @@
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="OData.Model" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityType Name="Product">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ProductName" Type="Edm.String" />
+        <Property Name="Price" Type="Edm.Int64" Nullable="false" />
+        <Property Name="Rating" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CategoryId" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="Category" Type="OData.Model.Category" Nullable="false">
+          <ReferentialConstraint Property="CategoryId" ReferencedProperty="CategoryId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Category">
+        <Key>
+          <PropertyRef Name="CategoryId" />
+        </Key>
+        <Property Name="CategoryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CategoryName" Type="Edm.String" Nullable="false" />
+        <NavigationProperty Name="products" Type="Collection(OData.Model.Product)" />
+      </EntityType>
+      <EntityContainer Name="DataContext">
+        <EntitySet Name="Products" EntityType="OData.Model.Product">
+          <NavigationPropertyBinding Path="Category" Target="Categories" />
+        </EntitySet>
+        <EntitySet Name="Categories" EntityType="OData.Model.Category">
+          <NavigationPropertyBinding Path="products" Target="Products" />
+        </EntitySet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

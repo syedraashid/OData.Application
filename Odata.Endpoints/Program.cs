@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers().AddOData(opt => opt.Select().Filter().OrderBy().Expand()
-  .Count().AddRouteComponents("Odata",GetEdmModel()).SetMaxTop(100));
+  .Count().EnableQueryFeatures(100).AddRouteComponents("Odata",GetEdmModel()).SetMaxTop(100));
 
 
 
@@ -47,12 +47,13 @@ app.Run();
 
 static IEdmModel GetEdmModel()
 {
-    var Odata = new ODataModelBuilder();
+    var builder = new ODataConventionModelBuilder()
+    {
+        ContainerName = "DataContext",
+        Namespace = "OData.Model",
+    };
 
-    var productEntity = Odata.EntitySet<Product>("Products").EntityType;
-    var categoryEntity = Odata.EntitySet<Category>("Categories").EntityType;
-    productEntity.HasKey(_ => _.Id);
-    categoryEntity.HasKey(_ => _.CategoryId);
-
-    return Odata.GetEdmModel();
+    builder.EntitySet<Product>("Products");
+    builder.EntitySet<Category>("Categories");
+    return builder.GetEdmModel();
 }
