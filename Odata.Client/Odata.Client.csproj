@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId>MyOdataClient</PackageId>
+    <Title>CustomOdataClientPackage</Title>
+    <Authors>SyedRaashid</Authors>
+    <Description>OData Client for consuming OData APIs</Description>
+    <RepositoryUrl>https://github.com/syedraashid/OData.Application</RepositoryUrl>
+    <PackageOutputPath>bin\Release\</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Connected Services\OData Service\OData ServiceCsdl.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Connected Services\OData Service\OData ServiceCsdl.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.OData" Version="5.8.5" />
+    <PackageReference Include="Microsoft.OData.Client" Version="8.2.3" />
+    <PackageReference Include="Microsoft.OData.Core" Version="8.2.3" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="8.2.3" />
+    <PackageReference Include="Microsoft.Spatial" Version="8.2.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.2" />
+  </ItemGroup>
+
+</Project>
